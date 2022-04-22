@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.autobots.automanager.entidades.Cliente;
 import com.autobots.automanager.entidades.Documento;
-import com.autobots.automanager.modelo.ClienteSelecionador;
-import com.autobots.automanager.modelo.DocumentoSelecionador;
+import com.autobots.automanager.modelos.ClienteSelecionador;
+import com.autobots.automanager.modelos.DocumentoSelecionador;
 import com.autobots.automanager.repositorios.ClienteRepositorio;
 import com.autobots.automanager.repositorios.DocumentoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,63 +2,65 @@ package com.autobots.automanager.controles;
 
 import java.util.List;
 
-import com.autobots.automanager.entidades.Cliente;
-import com.autobots.automanager.entidades.Endereco;
-import com.autobots.automanager.modelo.ClienteSelecionador;
-import com.autobots.automanager.modelo.EnderecoSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
-import com.autobots.automanager.repositorios.EnderecoRepositorio;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/endereco")
+import com.autobots.automanager.entidades.Endereco;
+// import com.autobots.automanager.modelos.AdicionadorLinkEndereco;
+// import com.autobots.automanager.modelos.EnderecoSelecionador;
+import com.autobots.automanager.repositorios.EnderecoRepositorio;
+
+@Controller
 public class EnderecoControle {
-  @Autowired
-  private EnderecoSelecionador selecionador;
+	@Autowired
+	private EnderecoRepositorio repositorio;
+	// @Autowired
+	// private EnderecoSelecionador selecionador;
+	// @Autowired
+	// private AdicionadorLinkEndereco adicionadorLink;
 
-  @Autowired
-  private ClienteSelecionador selecionadorCliente;
+	@GetMapping("/enderecos")
+	public ResponseEntity<List<Endereco>> obterEnderecos() {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		List<Endereco> enderecos = repositorio.findAll();
+		if (enderecos == null) {
+			return new ResponseEntity<List<Endereco>>(status);
+		} else {
+			status = HttpStatus.FOUND;
+			return new ResponseEntity<List<Endereco>>(enderecos, status);
+		}
+	}
 
-  @Autowired
-  private ClienteRepositorio repositorioCliente;
+	@GetMapping("/{id}")
+	public ResponseEntity<List<Endereco>> obterEndereco(@PathVariable long id) {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		List<Endereco> enderecos = repositorio.findAll();
+		if (enderecos == null) {
+			return new ResponseEntity<List<Endereco>>(status);
+		} else {
+			status = HttpStatus.FOUND;
+			return new ResponseEntity<List<Endereco>>(enderecos, status);
+		}
+	}
 
-  @Autowired
-  private EnderecoRepositorio repositorio;
+	// @PutMapping("/alterar")
+	// public void alterarCliente(@RequestBody Cliente cliente) {
+	// List<Cliente> clientes = repositorioCliente.findAll();
+	// Cliente selecionado = selecionadorCliente.selecionar(clientes,
+	// cliente.getId());
+	// selecionado.setEndereco(cliente.getEndereco());
+	// repositorioCliente.save(selecionado);
+	// }
 
-  @GetMapping("/enderecos")
-  public List<Endereco> obterEnderecos() {
-    List<Endereco> enderecos = repositorio.findAll();
-    return enderecos;
-  }
-
-  @GetMapping("/{id}")
-  public Endereco obterEndereco(@PathVariable long id) {
-    List<Endereco> enderecos = repositorio.findAll();
-    return selecionador.selecionar(enderecos, id);
-  }
-
-  @PutMapping("/alterar")
-  public void alterarCliente(@RequestBody Cliente cliente) {
-    List<Cliente> clientes = repositorioCliente.findAll();
-    Cliente selecionado = selecionadorCliente.selecionar(clientes, cliente.getId());
-    selecionado.setEndereco(cliente.getEndereco());
-    repositorioCliente.save(selecionado);
-  }
-
-  @DeleteMapping("/excluir")
-  public void deletarEndereco(@PathVariable long id) {
-    List<Cliente> clientes = repositorioCliente.findAll();
-    Cliente selecionado = selecionadorCliente.selecionar(clientes, id);
-    selecionado.setEndereco(null);
-    repositorioCliente.save(selecionado);
-  }
-
+	// @DeleteMapping("/excluir")
+	// public void deletarEndereco(@PathVariable long id) {
+	// List<Cliente> clientes = repositorioCliente.findAll();
+	// Cliente selecionado = selecionadorCliente.selecionar(clientes, id);
+	// selecionado.setEndereco(null);
+	// repositorioCliente.save(selecionado);
+	// }
 }
