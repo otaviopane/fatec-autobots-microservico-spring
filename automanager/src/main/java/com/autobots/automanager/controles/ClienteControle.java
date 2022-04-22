@@ -25,16 +25,16 @@ public class ClienteControle {
 	@Autowired
 	private ClienteSelecionador selecionador;
 
-	@GetMapping("/cliente/{id}")
-	public Cliente obterCliente(@PathVariable long id) {
-		List<Cliente> clientes = repositorio.findAll();
-		return selecionador.selecionar(clientes, id);
-	}
-
 	@GetMapping("/clientes")
 	public List<Cliente> obterClientes() {
 		List<Cliente> clientes = repositorio.findAll();
 		return clientes;
+	}
+
+	@GetMapping("/{id}")
+	public Cliente obterCliente(@PathVariable long id) {
+		List<Cliente> clientes = repositorio.findAll();
+		return selecionador.selecionar(clientes, id);
 	}
 
 	@PostMapping("/cadastro")

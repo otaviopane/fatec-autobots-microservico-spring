@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,27 +33,27 @@ public class EnderecoControle {
   @Autowired
   private EnderecoRepositorio repositorio;
 
-  @GetMapping("/")
+  @GetMapping("/enderecos")
   public List<Endereco> obterEnderecos() {
     List<Endereco> enderecos = repositorio.findAll();
     return enderecos;
   }
 
   @GetMapping("/{id}")
-  public Endereco obterCliente(@PathVariable long id) {
+  public Endereco obterEndereco(@PathVariable long id) {
     List<Endereco> enderecos = repositorio.findAll();
     return selecionador.selecionar(enderecos, id);
   }
 
-  @PutMapping("/cadastro")
-  public void cadastrarCliente(@RequestBody Cliente cliente) {
+  @PutMapping("/alterar")
+  public void alterarCliente(@RequestBody Cliente cliente) {
     List<Cliente> clientes = repositorioCliente.findAll();
     Cliente selecionado = selecionadorCliente.selecionar(clientes, cliente.getId());
     selecionado.setEndereco(cliente.getEndereco());
     repositorioCliente.save(selecionado);
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/excluir")
   public void deletarEndereco(@PathVariable long id) {
     List<Cliente> clientes = repositorioCliente.findAll();
     Cliente selecionado = selecionadorCliente.selecionar(clientes, id);

@@ -2,6 +2,15 @@ package com.autobots.automanager.controles;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.autobots.automanager.entidades.Cliente;
 import com.autobots.automanager.entidades.Telefone;
 import com.autobots.automanager.modelo.ClienteSelecionador;
@@ -9,57 +18,53 @@ import com.autobots.automanager.modelo.TelefoneSelecionador;
 import com.autobots.automanager.repositorios.ClienteRepositorio;
 import com.autobots.automanager.repositorios.TelefoneRepositorio;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 @RequestMapping("/telefone")
 public class TelefoneControle {
   @Autowired
-  private TelefoneSelecionador selecionador;
+  private TelefoneRepositorio RepositorioTelefone;
 
   @Autowired
-  private ClienteSelecionador selecionadorCliente;
+  private ClienteRepositorio clienteRepositorio;
 
   @Autowired
-  private ClienteRepositorio repositorioCliente;
+  private ClienteSelecionador clienteSelecionador;
 
   @Autowired
-  private TelefoneRepositorio repositorio;
+  private TelefoneSelecionador selecionarTelefone;
 
-  @GetMapping("/")
-  public List<Telefone> obterTelefones() {
-    List<Telefone> telefones = repositorio.findAll();
-    return telefones;
+  @GetMapping("/telefones")
+  public List<Telefone> obterTelefone() {
+    List<Telefone> telefone = RepositorioTelefone.findAll();
+    return telefone;
   }
 
   @GetMapping("/{id}")
-  public Telefone obterCliente(@PathVariable long id) {
-    List<Telefone> telefones = repositorio.findAll();
-    return selecionador.selecionar(telefones, id);
+  public Telefone obterTelefone(@PathVariable long id) {
+    List<Telefone> telefones = RepositorioTelefone.findAll();
+    return selecionarTelefone.selecionar(telefones, id);
   }
 
   @PutMapping("/cadastro")
-  public void cadastrarCliente(@RequestBody Cliente cliente) {
-    List<Cliente> clientes = repositorioCliente.findAll();
-    Cliente selecionado = selecionadorCliente.selecionar(clientes, cliente.getId());
-    selecionado.setTelefone(cliente.getTelefone());
-    repositorioCliente.save(selecionado);
+  public void cadastrarTelefone(@RequestBody Cliente cliente) {
+    List<Cliente> clientes = clienteRepositorio.findAll();
+    Cliente clienteAlvo = clienteSelecionador.selecionar(clientes, cliente.getId());
+    clienteAlvo.getTelefones().addAll(cliente.getTelefones());
+    clienteRepositorio.save(clienteAlvo);
   }
 
-  @DeleteMapping("/delete/{id}")
-  public void deletarTelefone(@PathVariable long id) {
-    List<Cliente> clientes = repositorioCliente.findAll();
-    Cliente selecionado = selecionadorCliente.selecionar(clientes, id);
-    selecionado.setTelefone(null);
-    repositorioCliente.save(selecionado);
+  @DeleteMapping("/excluir/{clienteId}/{telefoneId}")
+  public void deletarTelefone(@PathVariable long clienteId, @PathVariable long telefoneId) {
+    Cliente cliente = clienteRepositorio.getById(clienteId);
+    List<Telefone> listaTelefones = cliente.getTelefones();
+    Telefone findTelefone = null;
+    for (Telefone telefone : listaTelefones) {
+      if (telefone.getId() == telefoneId) {
+        findTelefone = telefone;
+      }
+    }
+    listaTelefones.remove(findTelefone);
+    clienteRepositorio.save(cliente);
   }
 
 }
