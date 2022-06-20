@@ -16,7 +16,7 @@ utilizadas no desenvolvimento.
 Para auxiliar nesta tarefa um ex-membro do time de desenvolvimento deixou uma 
 parte, inicial, já pronta. Este membro não terminou o trabalho porque se retirou da 
 empresa, mas disponibilizou um repositório com o seu desenvolvimento. Os códigos 
-podem ser acessados pela Figura 2 ou pelo link: https://github.com/gerson-pn/atvii-autobots-microservico-spring.
+podem ser acessados pelo link: https://github.com/gerson-pn/atvii-autobots-microservico-spring.
 
 ------
 ------
