@@ -22,11 +22,11 @@ Dado a decisão, o primeiro trabalho da equipe foi desenvolver um CRUD básico, 
 
 A estrutura de classes pensada pela equipe de desenvolvimento segue o diagrama UML da Figura 1. Esta estrutura representa as entidades, ou seja, as classes que utilizadas para manipular a base de dados.
 
-![diagrama de classe](https://user-images.githubusercontent.com/58819253/174502876-e04a6faa-8e04-4c17-b2a7-5ea2d05fe73b.png)
+![diagrama de classe](https://user-images.githubusercontent.com/58819253/174506049-d1cd409d-efef-491f-b4a1-49e5076b072e.png)
 
 Nesta primeira etapa do projeto, a equipe de desenvolvimento tentou seguir os principais padrões de projeto e conceitos SOLID. Por isso, classe adicionais foram criadas para realizar as regras de negócio. O diagrama UML da Figura 2 apresenta as classes.
 
-![diagrama de classe](https://user-images.githubusercontent.com/58819253/174502876-e04a6faa-8e04-4c17-b2a7-5ea2d05fe73b.png)
+![diagrama de classe](https://user-images.githubusercontent.com/58819253/174506063-a377f906-426e-4cd6-9628-d1b6a1280f8b.png)
 
 Apesar do esforço da equipe, o CRUD ainda está incompleto. Faltam ainda os procedimentos de inserção, atualização, seleção e remoção para todas as entidades da base de dados. Além disso, o que foi desenvolvido, talvez, não esteja do seu agrado e precisa de atualização.
 
