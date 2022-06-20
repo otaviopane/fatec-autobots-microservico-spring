@@ -7,7 +7,7 @@ incompleta. A arquitetura escolhida foi a de micro-serviços, mas o automanager 
 contempla os quatro níveis de maturidade, conhecidos como RMM (Richardson 
 Maturity Model). Os níveis RMM podem ser lembrados pela Figura 1.
 
-![diagrama de classe](https://user-images.githubusercontent.com/58819253/174502876-e04a6faa-8e04-4c17-b2a7-5ea2d05fe73b.png)
+![diagrama de classe](https://user-images.githubusercontent.com/58819253/174507831-f7e76dc0-0ae7-4e82-9ae6-667448ca0952.png)
 ---
 #### **Atividade:**
 Você trabalhou bastante na aplicação e implementou todos os CRUDs faltantes. O 
