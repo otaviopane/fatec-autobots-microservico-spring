@@ -21,7 +21,7 @@ A “atualização de base” consiste em adicionar mais capacidades no sistema,
 Após conversas com a equipe de desenvolvimento, chegou-se a uma estrutura, um diagrama de classes, onde apresenta-se os relacionamentos entre as classes e evidencia-se as novas capacidades do sistema. Este diagrama é apresentado na Figura 
 1.
 
-![diagrama de classe](https://user-images.githubusercontent.com/58819253/174502876-e04a6faa-8e04-4c17-b2a7-5ea2d05fe73b.png)
+![diagrama de classe](https://user-images.githubusercontent.com/58819253/174511706-b930091c-3236-4369-b110-95555038f0b5.png)
 
 A equipe de desenvolvimento preparou um projeto com os códigos das classes apresentadas na Figura 1. O objetivo é implementar estas classes no sistema, bem como todo o CRUD para as entidades e HATEOAS.
 
