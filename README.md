@@ -1,4 +1,4 @@
-# **Desenvolvimento Web III - Primeira Atividade Prática**
+# **Desenvolvimento Web III - Segunda Atividade Prática**
 ## **Professor Gerson Penha Neto**
 ---
 #### **Contextualização:**
@@ -7,7 +7,7 @@ incompleta. A arquitetura escolhida foi a de micro-serviços, mas o automanager 
 contempla os quatro níveis de maturidade, conhecidos como RMM (Richardson 
 Maturity Model). Os níveis RMM podem ser lembrados pela Figura 1.
 
-![diagrama de classe](https://user-images.githubusercontent.com/58819253/174502876-e04a6faa-8e04-4c17-b2a7-5ea2d05fe73b.png)
+![diagrama de classe](https://user-images.githubusercontent.com/58819253/174507831-f7e76dc0-0ae7-4e82-9ae6-667448ca0952.png)
 ---
 #### **Atividade:**
 Você trabalhou bastante na aplicação e implementou todos os CRUDs faltantes. O 
@@ -16,7 +16,7 @@ utilizadas no desenvolvimento.
 Para auxiliar nesta tarefa um ex-membro do time de desenvolvimento deixou uma 
 parte, inicial, já pronta. Este membro não terminou o trabalho porque se retirou da 
 empresa, mas disponibilizou um repositório com o seu desenvolvimento. Os códigos 
-podem ser acessados pela Figura 2 ou pelo link: https://github.com/gerson-pn/atvii-autobots-microservico-spring.
+podem ser acessados pelo link: https://github.com/gerson-pn/atvii-autobots-microservico-spring.
 
 ------
 ------
