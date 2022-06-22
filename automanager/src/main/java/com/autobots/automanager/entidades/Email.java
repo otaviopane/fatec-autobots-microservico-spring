@@ -1,4 +1,4 @@
-package com.autobots.automanager.entitades;
+package com.autobots.automanager.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +10,10 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Servico {
+public class Email {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false, unique = true)
-	private String nome;
 	@Column(nullable = false)
-	private double valor;
-	@Column
-	private String descricao;
+	private String endereco;
 }

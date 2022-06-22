@@ -7,17 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.autobots.automanager.entitades.CredencialUsuarioSenha;
-import com.autobots.automanager.entitades.Documento;
-import com.autobots.automanager.entitades.Email;
-import com.autobots.automanager.entitades.Empresa;
-import com.autobots.automanager.entitades.Endereco;
-import com.autobots.automanager.entitades.Mercadoria;
-import com.autobots.automanager.entitades.Servico;
-import com.autobots.automanager.entitades.Telefone;
-import com.autobots.automanager.entitades.Usuario;
-import com.autobots.automanager.entitades.Veiculo;
-import com.autobots.automanager.entitades.Venda;
+import com.autobots.automanager.entidades.CredencialUsuarioSenha;
+import com.autobots.automanager.entidades.Documento;
+import com.autobots.automanager.entidades.Email;
+import com.autobots.automanager.entidades.Empresa;
+import com.autobots.automanager.entidades.Endereco;
+import com.autobots.automanager.entidades.Mercadoria;
+import com.autobots.automanager.entidades.Servico;
+import com.autobots.automanager.entidades.Telefone;
+import com.autobots.automanager.entidades.Usuario;
+import com.autobots.automanager.entidades.Veiculo;
+import com.autobots.automanager.entidades.Venda;
 import com.autobots.automanager.enumeracoes.PerfilUsuario;
 import com.autobots.automanager.enumeracoes.TipoDocumento;
 import com.autobots.automanager.enumeracoes.TipoVeiculo;
@@ -138,7 +138,7 @@ public class AutomanagerApplication implements CommandLineRunner {
 		fornecedor.setEndereco(enderecoFornecedor);
 
 		empresa.getUsuarios().add(fornecedor);
-		
+
 		Mercadoria rodaLigaLeve = new Mercadoria();
 		rodaLigaLeve.setCadastro(new Date());
 		rodaLigaLeve.setFabricao(new Date());
@@ -187,15 +187,15 @@ public class AutomanagerApplication implements CommandLineRunner {
 		enderecoCliente.setCodigoPostal("12245-070");
 
 		cliente.setEndereco(enderecoCliente);
-		
+
 		Veiculo veiculo = new Veiculo();
 		veiculo.setPlaca("ABC-0000");
 		veiculo.setModelo("corolla-cross");
 		veiculo.setTipo(TipoVeiculo.SUV);
 		veiculo.setProprietario(cliente);
-		
+
 		cliente.getVeiculos().add(veiculo);
-		
+
 		empresa.getUsuarios().add(cliente);
 
 		Servico trocaRodas = new Servico();
