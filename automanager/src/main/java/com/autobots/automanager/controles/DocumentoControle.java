@@ -2,12 +2,12 @@ package com.autobots.automanager.controles;
 
 import java.util.List;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Documento;
 import com.autobots.automanager.modelos.AdicionadorLinkDocumento;
-import com.autobots.automanager.modelos.ClienteSelecionador;
+import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.DocumentoSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.DocumentoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +30,9 @@ public class DocumentoControle {
 	@Autowired
 	private DocumentoSelecionador selecionarDocumento;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private UsuarioRepositorio usuarioRepositorio;
 	@Autowired
-	private ClienteSelecionador clienteSelecionador;
+	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/documentos")
 	public ResponseEntity<List<Documento>> obterDocumentos() {
@@ -54,17 +54,17 @@ public class DocumentoControle {
 	}
 
 	@PutMapping("/cadastro")
-	public void cadastrarDocumento(@RequestBody Cliente cliente) {
-		List<Cliente> clientes = clienteRepositorio.findAll();
-		Cliente clienteAlvo = clienteSelecionador.selecionar(clientes, cliente.getId());
-		clienteAlvo.getDocumentos().addAll(cliente.getDocumentos());
-		clienteRepositorio.save(clienteAlvo);
+	public void cadastrarDocumento(@RequestBody Usuario usuario) {
+		List<Usuario> usuarios = usuarioRepositorio.findAll();
+		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
+		usuarioAlvo.getDocumentos().addAll(usuario.getDocumentos());
+		usuarioRepositorio.save(usuarioAlvo);
 	}
 
-	@DeleteMapping("/excluir/{clienteId}/{documentoId}")
-	public void deletarDocumento(@PathVariable long clienteId, @PathVariable long documentoId) {
-		Cliente cliente = clienteRepositorio.getById(clienteId);
-		List<Documento> listaDocumentos = cliente.getDocumentos();
+	@DeleteMapping("/excluir/{usuarioId}/{documentoId}")
+	public void deletarDocumento(@PathVariable long usuarioId, @PathVariable long documentoId) {
+		Usuario usuario = usuarioRepositorio.getById(usuarioId);
+		List<Documento> listaDocumentos = usuario.getDocumentos();
 		Documento findDocumento = null;
 		for (Documento documento : listaDocumentos) {
 			if (documento.getId() == documentoId) {
@@ -72,6 +72,6 @@ public class DocumentoControle {
 			}
 		}
 		listaDocumentos.remove(findDocumento);
-		clienteRepositorio.save(cliente);
+		usuarioRepositorio.save(usuario);
 	}
 }

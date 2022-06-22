@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Documento;
 import com.autobots.automanager.entidades.Endereco;
 import com.autobots.automanager.entidades.Telefone;
-import com.autobots.automanager.modelos.AdicionadorLinkCliente;
+import com.autobots.automanager.modelos.AdicionadorLinkUsuario;
 import com.autobots.automanager.modelos.AdicionadorLinkDocumento;
 import com.autobots.automanager.modelos.AdicionadorLinkEndereco;
 import com.autobots.automanager.modelos.AdicionadorLinkTelefone;
-import com.autobots.automanager.modelos.ClienteAtualizador;
-import com.autobots.automanager.modelos.ClienteSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.modelos.UsuarioAtualizador;
+import com.autobots.automanager.modelos.UsuarioSelecionador;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.DocumentoRepositorio;
 import com.autobots.automanager.repositorios.EnderecoRepositorio;
 import com.autobots.automanager.repositorios.TelefoneRepositorio;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteControle {
+@RequestMapping("/usuario")
+public class UsuarioControle {
 	@Autowired
-	private ClienteRepositorio repositorio;
+	private UsuarioRepositorio repositorio;
 	@Autowired
-	private ClienteSelecionador selecionador;
+	private UsuarioSelecionador selecionador;
 	@Autowired
-	private AdicionadorLinkCliente adicionadorLink;
+	private AdicionadorLinkUsuario adicionadorLink;
 	@Autowired
 	private DocumentoRepositorio repositorioDocumento;
 	@Autowired
@@ -51,57 +51,57 @@ public class ClienteControle {
 	@Autowired
 	private AdicionadorLinkTelefone adicionadorLinkTelefone;
 
-	@GetMapping("/clientes")
-	public ResponseEntity<List<Cliente>> obterClientes() {
-		List<Cliente> clientes = repositorio.findAll();
+	@GetMapping("/usuarios")
+	public ResponseEntity<List<Usuario>> obterUsuarios() {
+		List<Usuario> usuarios = repositorio.findAll();
 		List<Documento> documentos = repositorioDocumento.findAll();
 		List<Endereco> enderecos = repositorioEndereco.findAll();
 		List<Telefone> telefones = repositorioTelefone.findAll();
-		if (clientes.isEmpty()) {
-			ResponseEntity<List<Cliente>> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if (usuarios.isEmpty()) {
+			ResponseEntity<List<Usuario>> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			return resposta;
 		} else {
-			adicionadorLink.adicionarLink(clientes);
+			adicionadorLink.adicionarLink(usuarios);
 			adicionadorLinkDocumento.adicionarLink(documentos);
 			adicionadorLinkEndereco.adicionarLink(enderecos);
 			adicionadorLinkTelefone.adicionarLink(telefones);
-			ResponseEntity<List<Cliente>> resposta = new ResponseEntity<>(clientes, HttpStatus.FOUND);
+			ResponseEntity<List<Usuario>> resposta = new ResponseEntity<>(usuarios, HttpStatus.FOUND);
 			return resposta;
 		}
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> obterCliente(@PathVariable long id) {
-		List<Cliente> clientes = repositorio.findAll();
-		Cliente cliente = selecionador.selecionar(clientes, id);
-		if (cliente == null) {
-			ResponseEntity<Cliente> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<Usuario> obterUsuario(@PathVariable long id) {
+		List<Usuario> usuarios = repositorio.findAll();
+		Usuario usuario = selecionador.selecionar(usuarios, id);
+		if (usuario == null) {
+			ResponseEntity<Usuario> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			return resposta;
 		} else {
-			adicionadorLink.adicionarLink(cliente);
-			ResponseEntity<Cliente> resposta = new ResponseEntity<Cliente>(cliente, HttpStatus.FOUND);
+			adicionadorLink.adicionarLink(usuario);
+			ResponseEntity<Usuario> resposta = new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
 			return resposta;
 		}
 	}
 
 	@PostMapping("/cadastro")
-	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
+	public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuario) {
 		HttpStatus status = HttpStatus.CONFLICT;
-		if (cliente.getId() == null) {
-			repositorio.save(cliente);
+		if (usuario.getId() == null) {
+			repositorio.save(usuario);
 			status = HttpStatus.CREATED;
 		}
 		return new ResponseEntity<>(status);
 	}
 
 	@PutMapping("/atualizar")
-	public ResponseEntity<?> atualizarCliente(@RequestBody Cliente atualizacao) {
+	public ResponseEntity<?> atualizarUsuario(@RequestBody Usuario atualizacao) {
 		HttpStatus status = HttpStatus.CONFLICT;
-		Cliente cliente = repositorio.getById(atualizacao.getId());
-		if (cliente != null) {
-			ClienteAtualizador atualizador = new ClienteAtualizador();
-			atualizador.atualizar(cliente, atualizacao);
-			repositorio.save(cliente);
+		Usuario usuario = repositorio.getById(atualizacao.getId());
+		if (usuario != null) {
+			UsuarioAtualizador atualizador = new UsuarioAtualizador();
+			atualizador.atualizar(usuario, atualizacao);
+			repositorio.save(usuario);
 			status = HttpStatus.OK;
 		} else {
 			status = HttpStatus.BAD_REQUEST;
@@ -110,11 +110,11 @@ public class ClienteControle {
 	}
 
 	@DeleteMapping("/excluir")
-	public ResponseEntity<?> excluirCliente(@RequestBody Cliente exclusao) {
+	public ResponseEntity<?> excluirUsuario(@RequestBody Usuario exclusao) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		Cliente cliente = repositorio.getById(exclusao.getId());
-		if (cliente != null) {
-			repositorio.delete(cliente);
+		Usuario usuario = repositorio.getById(exclusao.getId());
+		if (usuario != null) {
+			repositorio.delete(usuario);
 			status = HttpStatus.OK;
 		}
 		return new ResponseEntity<>(status);
