@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.autobots.automanager.enumeracoes.TipoDocumento;
+import org.springframework.hateoas.RepresentationModel;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-public class Documento {
+public class Documento extends RepresentationModel<Documento> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
