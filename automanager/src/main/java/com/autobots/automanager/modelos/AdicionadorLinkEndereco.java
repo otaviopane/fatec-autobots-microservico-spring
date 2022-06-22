@@ -27,7 +27,11 @@ public class AdicionadorLinkEndereco implements AdicionadorLink<Endereco> {
 
 	@Override
 	public void adicionarLink(Endereco objeto) {
-		// TODO Auto-generated method stub
-
+		Link linkProprio = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder
+						.methodOn(EnderecoControle.class)
+						.obterEnderecos())
+				.withRel("enderecos");
+		objeto.add(linkProprio);
 	}
 }
