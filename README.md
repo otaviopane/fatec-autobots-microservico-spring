@@ -1,43 +1,35 @@
-# **Desenvolvimento Web III - Terceira Atividade Prática**
+# **Desenvolvimento Web III - Quarta Atividade Prática**
 ## **Professor Gerson Penha Neto**
 ---
 #### **Contextualização:**
-Os níveis de maturidade, para os micro-serviços, foram implementados e a aplicação automanager está cada vez melhor – isto animou a equipe de marketing da empresa, que partiu em busca de investidores e grupos empresariais para, finalmente, lançar o produto no mercado.
+Segurança pode ser definida como ação ou efeito de tornar algo ou a si mesmo seguro, com estabilidade ou firmeza. Também pode-se imputar o significado de estado, qualidade ou condição de quem ou do que está livre de perigos, incertezas, assegurado de danos e riscos eventuais; situação em que nada há a temer.
 
-Após duas semanas de apresentações, e apesar da animação, o retorno obtido pela equipe de marketing não foi positivo. Todos os investidores solicitaram mudanças na aplicação que não atende, ainda, as necessidades básicas de uma loja de manutenção veicular e venda de autopeças.
+Quando transportado para o ambiente da computação e sistema de informação o significado de segurança torna-se mais específico, partindo do conceito de segurança da informação.
 
-Foram várias solicitações de atualizações no software, mas nem todas serão atendidas. Inteligentemente, a equipe de marketing selecionou alguns parceiros específicos, investidores promissores que deram sugestões importantíssimas e irão ajudar muito no lançamento do software. Os novos parceiros da autobots são: Toyota Motor Corporation e o grupo Volkswagen.
+A segurança da informação está diretamente relacionada com a proteção de um conjunto de informações, dados, no sentido de preservar o valor que possuem para um indivíduo ou uma organização. Portanto, a segurança da informação é o conceito por trás da defesa dos dados, detalhes e afins para assegurar que eles estejam acessíveis somente aos seus responsáveis de direito ou as pessoas às quais foram enviados. Para isto, seguem-se os seguintes pilares: confidencialidade, integridade, disponibilidade, autenticidade e legalidade.
 
-Toyota Motor Corporation é um fabricante automotivo japonês com sede na Toyota, província de Aichi, no Japão. O grupo Volkswagen é o maior fabricante de automóveis do mundo e tem a sua sede na cidade de Wolfsburg, na Baixa Saxônia. Os novos parceiros pretendem instalar o automanager nas suas redes de manutenção veicular e lojas de autopeças no Brasil. Isto é uma oportunidade imperdível.
+Cada pilar descreve um aspecto, que se desdobra em uma junção de partes que vão desde a concepção, chegando ao desenvolvimento e por fim na implantação e 
+disponibilização de um sistema ou aplicação. Dentre estas partes destacam-se dois conceitos denominados de autorização e autenticação.
+
+Autenticação e autorização são dois termos, que correspondem a duas técnicas de aplicação comuns para a maioria dos sistemas de informação e aplicações. Com estas técnicas garante-se mais segurança aos recursos, informações ou dados, que devem ser protegidos.
+
+A autenticação verifica a identidade digital do usuário, ou seja, processo de verificação de uma identidade. Em termos mais simples, é quando o usuário prova de fato quem ele é. Sendo que, para sistemas e aplicações, usuários podem ser pessoas, outras máquinas ou softwares que solicitem comunicação e/ou conexão.
+
+A autorização é o processo que ocorre após validação da autenticação. Diz respeito aos privilégios, que são concedidos a determinado usuário ao utilizar uma aplicação ou sistema. Serve para verificar se determinado usuário terá permissão para acessar, incluir ou modificar alguma informação/dado. Também, defini quais ações o usuário pode executar, o que é de fundamental importância dentro de uma aplicação ou sistema.
+
+Quando se entra na ceara de micro-serviços percebe-se mais de uma forma de implementar autenticação e autorização, mas, uma comum é conhecida como Json Web Token (JWT). O JWT é um padrão da Internet para a criação de dados com assinatura opcional e/ou criptografia cujo carga contém o JSON, que armazena um determinado número de informações. Este JSON é transmitido no cabeçalho das requisições como um token, uma cadeia de caracteres criptografada. Os tokens são assinados usando um segredo privado ou uma chave pública/privada.
 
 ---
 #### **Atividade:**
-Após várias reuniões com os investidores e com sua equipe de desenvolvimento definiu-se o que é preciso adicionar no sistema para que o primeiro MVP seja lançado. 
+Dado que a “atualização base” foi concluída, o próximo passo é implementar a “atualização segurança”, que consiste em incluir no sistema o processo de autenticação e autorização via Json Web Token (JWT).
 
-As atualizações foram divididas em duas partes, denominadas de “atualização de base” e “atualização de segurança”. Por decisão unânime da equipe de desenvolvimento, primeiro será feito a “atualização de base” e você será o responsável pelo seu desenvolvimento, enquanto o restante da equipe avalia os melhores fornecedores de serviços cloud, para implantação do sistema no Brasil.
+A implementação da “atualização segurança” é fundamental, lembre-se que os investidores são dois grupos empresariais com exigências de nível internacional. Sem adição de segurança o possível aporte dos investidores será cancelado.
 
-A “atualização de base” consiste em adicionar mais capacidades no sistema, que atualmente apenas registra clientes e informações como número de documentos, telefone e endereço. Agora o sistema deverá ser preparado para armazenar informações como usuários, veículos, serviços, peças, vendas e o que mais for minimamente necessário para a operação de uma loja de manutenção veicular.
-
-Após conversas com a equipe de desenvolvimento, chegou-se a uma estrutura, um diagrama de classes, onde apresenta-se os relacionamentos entre as classes e evidencia-se as novas capacidades do sistema. Este diagrama é apresentado na Figura 
-1.
+Os investidores sugeriram um padrão para os perfis de usuários e suas autorizações. Este padrão é o utilizado no sistema atual da maioria das lojas da Toyota. Os perfis e suas autorizações são descritos na Tabela 1.
 
 ![diagrama de classe](https://user-images.githubusercontent.com/58819253/174511706-b930091c-3236-4369-b110-95555038f0b5.png)
 
-A equipe de desenvolvimento preparou um projeto com os códigos das classes apresentadas na Figura 1. O objetivo é implementar estas classes no sistema, bem como todo o CRUD para as entidades e HATEOAS.
-
-Você tem liberdade para modificar os códigos, que foram sugeridos pela equipe de desenvolvimento, afinal, você é o fundador da empresa e o maior idealizador do produto. Contudo, as funcionalidades não devem ser negligenciadas, porque foram solicitações dos investidores, as novas funcionalidades são:
-
-• Cadastro de empresa, ou seja, a unidade comercial que oferece o serviço de manutenção e venda de mercadorias.
-
-• Inclusão associação de usuários a uma determinada empresa.
-
-• Definição dos tipos de usuário no sistema, que pode ser cliente, fornecedor ou funcionário.
-
-• Cadastro de veículos, mercadorias e serviços, para gerenciamento de vendas e serviços prestados a um usuário e seu veículo.
-
-• Inclusão de credencial para acesso de um usuário ao sistema.
-
-Os códigos desenvolvidos pela equipe de desenvolvimento estão disponíveis a partir no endereço: https://github.com/gerson-pn/atviii-autobots-microservico-spring
+Para auxiliar na implementação a equipe de engenharia de software da Toyota disponibilizou um modelo de projeto, que está incompleto, mas pode auxiliar no desenvolvimento. O modelo de projeto foi disponibilizado em um repositório remoto, que está disponível pelo endereço: https://github.com/gerson-pn/atviv-autobots-microservico-spring.
 
 ------
 ------
@@ -68,7 +60,7 @@ git clone git@github.com:otaviopane/fatec-autobots-microservico-spring.git
 ### Alterar para a branch da atividade:
 No terminal execute:
 ```bash
-git checkout Atividade03
+git checkout Atividade04
 ```
 
 ### Executar o projeto:
