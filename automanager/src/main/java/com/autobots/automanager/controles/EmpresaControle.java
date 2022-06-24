@@ -15,19 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Empresa;
-import com.autobots.automanager.entidades.Documento;
-import com.autobots.automanager.entidades.Endereco;
-import com.autobots.automanager.entidades.Telefone;
 import com.autobots.automanager.modelos.AdicionadorLinkEmpresa;
-import com.autobots.automanager.modelos.AdicionadorLinkDocumento;
-import com.autobots.automanager.modelos.AdicionadorLinkEndereco;
-import com.autobots.automanager.modelos.AdicionadorLinkTelefone;
 import com.autobots.automanager.modelos.EmpresaAtualizador;
 import com.autobots.automanager.modelos.EmpresaSelecionador;
 import com.autobots.automanager.repositorios.EmpresaRepositorio;
-import com.autobots.automanager.repositorios.DocumentoRepositorio;
-import com.autobots.automanager.repositorios.EnderecoRepositorio;
-import com.autobots.automanager.repositorios.TelefoneRepositorio;
 
 @RestController
 @RequestMapping("/empresa")
@@ -38,33 +29,15 @@ public class EmpresaControle {
 	private EmpresaSelecionador selecionador;
 	@Autowired
 	private AdicionadorLinkEmpresa adicionadorLink;
-	@Autowired
-	private DocumentoRepositorio repositorioDocumento;
-	@Autowired
-	private AdicionadorLinkDocumento adicionadorLinkDocumento;
-	@Autowired
-	private EnderecoRepositorio repositorioEndereco;
-	@Autowired
-	private AdicionadorLinkEndereco adicionadorLinkEndereco;
-	@Autowired
-	private TelefoneRepositorio repositorioTelefone;
-	@Autowired
-	private AdicionadorLinkTelefone adicionadorLinkTelefone;
 
 	@GetMapping("/empresas")
 	public ResponseEntity<List<Empresa>> obterEmpresas() {
 		List<Empresa> empresas = repositorio.findAll();
-		List<Documento> documentos = repositorioDocumento.findAll();
-		List<Endereco> enderecos = repositorioEndereco.findAll();
-		List<Telefone> telefones = repositorioTelefone.findAll();
 		if (empresas.isEmpty()) {
 			ResponseEntity<List<Empresa>> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			return resposta;
 		} else {
 			adicionadorLink.adicionarLink(empresas);
-			adicionadorLinkDocumento.adicionarLink(documentos);
-			adicionadorLinkEndereco.adicionarLink(enderecos);
-			adicionadorLinkTelefone.adicionarLink(telefones);
 			ResponseEntity<List<Empresa>> resposta = new ResponseEntity<>(empresas, HttpStatus.FOUND);
 			return resposta;
 		}

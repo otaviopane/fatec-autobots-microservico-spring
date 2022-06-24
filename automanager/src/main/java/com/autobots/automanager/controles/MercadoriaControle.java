@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Mercadoria;
 import com.autobots.automanager.modelos.AdicionadorLinkMercadoria;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.MercadoriaSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.MercadoriaRepositorio;
 
 @RestController
@@ -30,10 +27,6 @@ public class MercadoriaControle {
 	private AdicionadorLinkMercadoria adicionadorLinkMercadoria;
 	@Autowired
 	private MercadoriaSelecionador selecionarMercadoria;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/mercadorias")
 	public ResponseEntity<List<Mercadoria>> obterMercadorias() {
@@ -54,25 +47,24 @@ public class MercadoriaControle {
 		return selecionarMercadoria.selecionar(mercadorias, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarMercadoria(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getMercadorias().addAll(usuario.getMercadorias());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarMercadoria(@RequestBody Mercadoria mercadoria) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (mercadoria.getId() == null) {
+			repositorio.save(mercadoria);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{mercadoriaId}")
-	public void deletarMercadoria(@PathVariable long usuarioId, @PathVariable long mercadoriaId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Mercadoria> listaMercadorias = usuario.getMercadorias();
-		Mercadoria findMercadoria = null;
-		for (Mercadoria mercadoria : listaMercadorias) {
-			if (mercadoria.getId() == mercadoriaId) {
-				findMercadoria = mercadoria;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarMercadoria(@RequestBody Mercadoria exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Mercadoria mercadoria = repositorio.getById(exclusao.getId());
+		if (mercadoria != null) {
+			repositorio.delete(mercadoria);
+			status = HttpStatus.OK;
 		}
-		listaMercadorias.remove(findMercadoria);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }

@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Venda;
 import com.autobots.automanager.modelos.AdicionadorLinkVenda;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.VendaSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.VendaRepositorio;
 
 @RestController
@@ -30,10 +27,6 @@ public class VendaControle {
 	private AdicionadorLinkVenda adicionadorLinkVenda;
 	@Autowired
 	private VendaSelecionador selecionarVenda;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/vendas")
 	public ResponseEntity<List<Venda>> obterVendas() {
@@ -54,25 +47,24 @@ public class VendaControle {
 		return selecionarVenda.selecionar(vendas, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarVenda(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getVendas().addAll(usuario.getVendas());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarVenda(@RequestBody Venda venda) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (venda.getId() == null) {
+			repositorio.save(venda);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{vendaId}")
-	public void deletarVenda(@PathVariable long usuarioId, @PathVariable long vendaId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Venda> listaVendas = usuario.getVendas();
-		Venda findVenda = null;
-		for (Venda venda : listaVendas) {
-			if (venda.getId() == vendaId) {
-				findVenda = venda;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarVenda(@RequestBody Venda exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Venda venda = repositorio.getById(exclusao.getId());
+		if (venda != null) {
+			repositorio.delete(venda);
+			status = HttpStatus.OK;
 		}
-		listaVendas.remove(findVenda);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }

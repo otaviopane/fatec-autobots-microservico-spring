@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Servico;
 import com.autobots.automanager.modelos.AdicionadorLinkServico;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.ServicoSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.ServicoRepositorio;
 
 @RestController
@@ -30,10 +27,6 @@ public class ServicoControle {
 	private AdicionadorLinkServico adicionadorLinkServico;
 	@Autowired
 	private ServicoSelecionador selecionarServico;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/servicos")
 	public ResponseEntity<List<Servico>> obterServicos() {
@@ -54,25 +47,24 @@ public class ServicoControle {
 		return selecionarServico.selecionar(servicos, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarServico(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getServicos().addAll(usuario.getServicos());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarServico(@RequestBody Servico servico) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (servico.getId() == null) {
+			repositorio.save(servico);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{servicoId}")
-	public void deletarServico(@PathVariable long usuarioId, @PathVariable long servicoId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Servico> listaServicos = usuario.getServicos();
-		Servico findServico = null;
-		for (Servico servico : listaServicos) {
-			if (servico.getId() == servicoId) {
-				findServico = servico;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarServico(@RequestBody Servico exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Servico servico = repositorio.getById(exclusao.getId());
+		if (servico != null) {
+			repositorio.delete(servico);
+			status = HttpStatus.OK;
 		}
-		listaServicos.remove(findServico);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }

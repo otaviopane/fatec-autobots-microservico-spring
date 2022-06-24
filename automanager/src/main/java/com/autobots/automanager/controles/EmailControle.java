@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Email;
 import com.autobots.automanager.modelos.AdicionadorLinkEmail;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.EmailSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.EmailRepositorio;
 
 @RestController
@@ -30,10 +27,6 @@ public class EmailControle {
 	private AdicionadorLinkEmail adicionadorLinkEmail;
 	@Autowired
 	private EmailSelecionador selecionarEmail;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/emails")
 	public ResponseEntity<List<Email>> obterEmails() {
@@ -54,25 +47,24 @@ public class EmailControle {
 		return selecionarEmail.selecionar(emails, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarEmail(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getEmails().addAll(usuario.getEmails());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarEmail(@RequestBody Email email) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (email.getId() == null) {
+			repositorio.save(email);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{emailId}")
-	public void deletarEmail(@PathVariable long usuarioId, @PathVariable long emailId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Email> listaEmails = usuario.getEmails();
-		Email findEmail = null;
-		for (Email email : listaEmails) {
-			if (email.getId() == emailId) {
-				findEmail = email;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarEmail(@RequestBody Email exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Email email = repositorio.getById(exclusao.getId());
+		if (email != null) {
+			repositorio.delete(email);
+			status = HttpStatus.OK;
 		}
-		listaEmails.remove(findEmail);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }

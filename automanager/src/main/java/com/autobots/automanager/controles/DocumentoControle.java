@@ -2,23 +2,21 @@ package com.autobots.automanager.controles;
 
 import java.util.List;
 
-import com.autobots.automanager.entidades.Usuario;
-import com.autobots.automanager.entidades.Documento;
-import com.autobots.automanager.modelos.AdicionadorLinkDocumento;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
-import com.autobots.automanager.modelos.DocumentoSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
-import com.autobots.automanager.repositorios.DocumentoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.autobots.automanager.entidades.Documento;
+import com.autobots.automanager.modelos.AdicionadorLinkDocumento;
+import com.autobots.automanager.modelos.DocumentoSelecionador;
+import com.autobots.automanager.repositorios.DocumentoRepositorio;
 
 @RestController
 @RequestMapping("/documento")
@@ -29,10 +27,6 @@ public class DocumentoControle {
 	private AdicionadorLinkDocumento adicionadorLinkDocumento;
 	@Autowired
 	private DocumentoSelecionador selecionarDocumento;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/documentos")
 	public ResponseEntity<List<Documento>> obterDocumentos() {
@@ -53,25 +47,24 @@ public class DocumentoControle {
 		return selecionarDocumento.selecionar(documentos, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarDocumento(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getDocumentos().addAll(usuario.getDocumentos());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarDocumento(@RequestBody Documento documento) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (documento.getId() == null) {
+			repositorio.save(documento);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{documentoId}")
-	public void deletarDocumento(@PathVariable long usuarioId, @PathVariable long documentoId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Documento> listaDocumentos = usuario.getDocumentos();
-		Documento findDocumento = null;
-		for (Documento documento : listaDocumentos) {
-			if (documento.getId() == documentoId) {
-				findDocumento = documento;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarDocumento(@RequestBody Documento exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Documento documento = repositorio.getById(exclusao.getId());
+		if (documento != null) {
+			repositorio.delete(documento);
+			status = HttpStatus.OK;
 		}
-		listaDocumentos.remove(findDocumento);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }

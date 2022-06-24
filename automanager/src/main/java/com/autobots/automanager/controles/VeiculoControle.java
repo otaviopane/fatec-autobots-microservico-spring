@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Veiculo;
 import com.autobots.automanager.modelos.AdicionadorLinkVeiculo;
-import com.autobots.automanager.modelos.UsuarioSelecionador;
 import com.autobots.automanager.modelos.VeiculoSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.VeiculoRepositorio;
 
 @RestController
@@ -30,10 +27,6 @@ public class VeiculoControle {
 	private AdicionadorLinkVeiculo adicionadorLinkVeiculo;
 	@Autowired
 	private VeiculoSelecionador selecionarVeiculo;
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private UsuarioSelecionador usuarioSelecionador;
 
 	@GetMapping("/veiculos")
 	public ResponseEntity<List<Veiculo>> obterVeiculos() {
@@ -54,25 +47,24 @@ public class VeiculoControle {
 		return selecionarVeiculo.selecionar(veiculos, id);
 	}
 
-	@PutMapping("/cadastro")
-	public void cadastrarVeiculo(@RequestBody Usuario usuario) {
-		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		Usuario usuarioAlvo = usuarioSelecionador.selecionar(usuarios, usuario.getId());
-		usuarioAlvo.getVeiculos().addAll(usuario.getVeiculos());
-		usuarioRepositorio.save(usuarioAlvo);
+	@PostMapping("/cadastro")
+	public ResponseEntity<?> cadastrarVeiculo(@RequestBody Veiculo veiculo) {
+		HttpStatus status = HttpStatus.CONFLICT;
+		if (veiculo.getId() == null) {
+			repositorio.save(veiculo);
+			status = HttpStatus.CREATED;
+		}
+		return new ResponseEntity<>(status);
 	}
 
-	@DeleteMapping("/excluir/{usuarioId}/{veiculoId}")
-	public void deletarVeiculo(@PathVariable long usuarioId, @PathVariable long veiculoId) {
-		Usuario usuario = usuarioRepositorio.getById(usuarioId);
-		List<Veiculo> listaVeiculos = usuario.getVeiculos();
-		Veiculo findVeiculo = null;
-		for (Veiculo veiculo : listaVeiculos) {
-			if (veiculo.getId() == veiculoId) {
-				findVeiculo = veiculo;
-			}
+	@DeleteMapping("/excluir/")
+	public ResponseEntity<?> deletarVeiculo(@RequestBody Veiculo exclusao) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		Veiculo veiculo = repositorio.getById(exclusao.getId());
+		if (veiculo != null) {
+			repositorio.delete(veiculo);
+			status = HttpStatus.OK;
 		}
-		listaVeiculos.remove(findVeiculo);
-		usuarioRepositorio.save(usuario);
+		return new ResponseEntity<>(status);
 	}
 }
