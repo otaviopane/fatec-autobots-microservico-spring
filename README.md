@@ -61,6 +61,12 @@ git clone git@github.com:otaviopane/fatec-autobots-microservico-spring.git
 
 ------
 
+### Alterar para a branch da atividade:
+No terminal execute:
+```bash
+git checkout Atividade01
+```
+
 ### Executar o projeto:
 #### Depois de esperar carregar as dependências do projeto utilizando o Eclipse ou VSCode:
 Na pasta raiz do projeto, execute o arquivo:
