@@ -44,6 +44,12 @@ git clone git@github.com:otaviopane/fatec-autobots-microservico-spring.git
 
 ------
 
+### Alterar para a branch da atividade:
+No terminal execute:
+```bash
+git checkout Atividade02
+```
+
 ### Executar o projeto:
 Na pasta raiz do projeto, execute o arquivo:
 ```bash
@@ -54,3 +60,74 @@ Na pasta raiz do projeto, execute o arquivo:
 ## Projeto já está sendo executado :D
 
 ------
+---
+# Rotas
+###  Rotas do Cliente (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                          | Rota                                     |
+| :-----------------------------------------------: | :--------------------------------- | :--------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos clientes              | `http://localhost:8080/cliente/clientes` | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um cliente         | `http://localhost:8080/cliente/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um cliente             | `http://localhost:8080/cliente/cadastro` |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Atualizar dados de um cliente      | `http://localhost:8080/cliente/atualizar`|
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um cliente             | `http://localhost:8080/cliente/excluir`  |
+
+</details>
+
+---
+
+###  Rotas do Documento (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                   | Rota                                                  |
+| :-----------------------------------------------: | :-------------------------- | :---------------------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos documentos     | `http://localhost:8080/documento/documentos`          | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um document | `http://localhost:8080/documento/{id}`                |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Cadastro de um documento    | `http://localhost:8080/documento/cadastro`            |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um documento    | `http://localhost:8080/documento/excluir/{clienteId}/{documentoId}`|
+
+</details>
+
+---
+
+###  Rotas do Endereço (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                        | Rota                                      |
+| :-----------------------------------------------: | :------------------------------- | :---------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos enderecos           | `http://localhost:8080/endereco/enderecos`| 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um endereco      | `http://localhost:8080/endereco/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um endereco          | `http://localhost:8080/endereco/cadastro`  |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Atualizar dados de um endereco   | `http://localhost:8080/endereco/alterar`  |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um endereco          | `http://localhost:8080/endereco/excluir`  |
+
+</details>
+
+---
+
+###  Rotas do Telefone (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                   | Rota                                                             |
+| :-----------------------------------------------: | :-------------------------- | :--------------------------------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos telefones      | `http://localhost:8080/telefone/telefones`                       | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um telefone | `http://localhost:8080/telefone/{id}`                            |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Cadastro de um telefone     | `http://localhost:8080/telefone/cadastro`                        |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um telefone     | `http://localhost:8080/telefone/excluir/{clienteId}/{telefoneId}`|
+
+</details>
+
+---
