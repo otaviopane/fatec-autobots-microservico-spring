@@ -81,3 +81,168 @@ Na pasta raiz do projeto, execute o arquivo:
 ## Projeto já está sendo executado :D
 
 ------
+# Rotas
+###  Rotas do Documento (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                   | Rota                                           |
+| :-----------------------------------------------: | :-------------------------- | :--------------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos documentos     | `http://localhost:8080/documento/documentos`   | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um document | `http://localhost:8080/documento/{id}`         |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um documento    | `http://localhost:8080/documento/cadastro`     |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um documento    | `http://localhost:8080/documento/excluir`      |
+
+</details>
+
+---
+###  Rotas do Email (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                        | Rota                                   |
+| :-----------------------------------------------: | :------------------------------- | :------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos emails              | `http://localhost:8080/email/emails`   | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um email         | `http://localhost:8080/email/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um email             | `http://localhost:8080/email/cadastro` |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um email             | `http://localhost:8080/email/excluir`  |
+
+</details>
+
+---
+###  Rotas do Empresa (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                          | Rota                                      |
+| :-----------------------------------------------: | :--------------------------------- | :---------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos empresas              | `http://localhost:8080/empresa/empresas`  | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de uma empresa        | `http://localhost:8080/empresa/{id}`      |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um empresa             | `http://localhost:8080/empresa/cadastro`  |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Atualizar dados de uma empresa     | `http://localhost:8080/empresa/atualizar` |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um empresa             | `http://localhost:8080/empresa/excluir`   |
+
+</details>
+
+---
+###  Rotas do Endereço (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                        | Rota                                      |
+| :-----------------------------------------------: | :------------------------------- | :---------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos enderecos           | `http://localhost:8080/endereco/enderecos`| 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um endereco      | `http://localhost:8080/endereco/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um endereco          | `http://localhost:8080/endereco/cadastro` |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Atualizar dados de um endereco   | `http://localhost:8080/endereco/atualizar`|
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um endereco          | `http://localhost:8080/endereco/excluir`  |
+
+</details>
+
+---
+###  Rotas da Mercadoria (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                     | Rota                                            |
+| :-----------------------------------------------: | :---------------------------- | :---------------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos mercadorias      | `http://localhost:8080/mercadoria/mercadorias`  | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um mercadoria | `http://localhost:8080/mercadoria/{id}`         |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um mercadoria     | `http://localhost:8080/mercadoria/cadastro`     |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um mercadoria     | `http://localhost:8080/mercadoria/excluir`      |
+
+</details>
+
+---
+
+###  Rotas do Serviço (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                    | Rota                                      |
+| :-----------------------------------------------: | :--------------------------- | :---------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos servicos        | `http://localhost:8080/servico/servicos`  | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um servico   | `http://localhost:8080/servico/{id}`      |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um servico       | `http://localhost:8080/servico/cadastro`  |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um servico       | `http://localhost:8080/servico/excluir`   |
+
+</details>
+
+---
+###  Rotas do Telefone (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                   | Rota                                       |
+| :-----------------------------------------------: | :-------------------------- | :----------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos telefones      | `http://localhost:8080/telefone/telefones` | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um telefone | `http://localhost:8080/telefone/{id}`      |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um telefone     | `http://localhost:8080/telefone/cadastro`  |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um telefone     | `http://localhost:8080/telefone/excluir`  |
+
+</details>
+
+---
+###  Rotas do Usuário (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                          | Rota                                      |
+| :-----------------------------------------------: | :--------------------------------- | :---------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos usuários              | `http://localhost:8080/usuario/usuarios`  | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de uma usuário        | `http://localhost:8080/usuario/{id}`      |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um usuário             | `http://localhost:8080/usuario/cadastro`  |
+| [![](https://img.shields.io/badge/-PUT-orange)]() | Atualizar dados de uma usuário     | `http://localhost:8080/usuario/atualizar` |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um usuário             | `http://localhost:8080/usuario/excluir`   |
+
+</details>
+
+---
+###  Rotas do Veiculo (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                   | Rota                                    |
+| :-----------------------------------------------: | :-------------------------- | :-------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos veículos      | `http://localhost:8080/veiculo/veiculos` | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um veiculo | `http://localhost:8080/veiculo/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um veiculo     | `http://localhost:8080/veiculo/cadastro` |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um veiculo     | `http://localhost:8080/veiculo/excluir`  |
+
+</details>
+
+---
+###  Rotas da Venda (CRUD)
+
+<details>
+    <summary> Aperte aqui:</summary>
+<br>
+
+| Tipo                                              | Descrição                | Rota                                   |
+| :-----------------------------------------------: | :----------------------- | :------------------------------------- |
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listagem dos vendas      | `http://localhost:8080/venda/vendas`   | 
+| [![](https://img.shields.io/badge/-GET-purple)]() | Listar dados de um venda | `http://localhost:8080/venda/{id}`     |
+| [![](https://img.shields.io/badge/-POST-green)]() | Cadastro de um venda     | `http://localhost:8080/venda/cadastro` |
+| [![](https://img.shields.io/badge/-DELETE-red)]() | Exclusão de um venda     | `http://localhost:8080/venda/excluir`  |
+
+</details>
+
+---
